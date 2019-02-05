@@ -1,0 +1,38 @@
+---
+- name: Check {{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main folder exists
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  stat:
+    path: "{{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main"
+  register: ojdbc_dir
+
+- name: Create {{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main folder
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  file:
+    path: "{{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main"
+    state: directory
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0755
+  when: ojdbc_dir.stat.exists == False
+
+- name: Copy ojdbc8.jar to {{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main folder
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  copy:
+    src: ojdbc8.jar
+    dest: "{{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main"
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0755
+
+- name: Copy module.xml to {{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main folder
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  copy:
+    src: module.xml
+    dest: "{{ rhsso_path }}/modules/system/layers/keycloak/org/oracle/main"
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0664

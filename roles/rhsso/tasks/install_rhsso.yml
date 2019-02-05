@@ -1,0 +1,65 @@
+---
+# Install rhsso
+- name: check rhsso installation path exist
+  become: yes
+  stat:
+    path: "{{ rhsso_installation_path }}"
+  register: install_path_stat
+
+- name: Make rhsso directories for installation
+  become: yes
+  file:
+    path: "{{ rhsso_installation_path }}"
+    state: directory
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0750
+  when: install_path_stat.stat.exists == false
+
+## rhsso_patch to be deploy from web console.
+- name: Copy rhsso package to installation path
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: "{{ rhsso_installation_path }}"
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0744
+  with_items:
+    - "{{ rhsso_installation_package }}"
+
+- name: Ensure unzip is installed
+  become: yes
+  yum:
+    name: unzip
+    state: present
+
+- name: unzip rhsso package
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  unarchive:
+    remote_src: yes
+    src: "{{ rhsso_installation_path }}/{{ rhsso_installation_package }}"
+    dest: "{{ rhsso_installation_path }}"
+
+- name: Remove rhsso package
+  become: yes
+  file:
+    path: "{{ rhsso_installation_path }}/{{ rhsso_installation_package }}"
+    state: absent
+
+- name: check vault folder exist
+  become: yes
+  stat:
+    path: "{{ rhsso_path }}/vault"
+  register: vault_stat
+
+- name: Create vault folder
+  become: yes
+  file:
+    path: "{{ rhsso_path }}/vault"
+    state: directory
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0750
+  when: vault_stat.stat.exists == false

@@ -1,0 +1,12 @@
+---
+- name: Ensure group "rhsso" exists
+  become: yes
+  group:
+    name: "{{ rhsso_user }}"
+    state: present
+
+- name: create rhsso user
+  become: yes
+  user:
+    name: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"

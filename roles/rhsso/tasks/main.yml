@@ -1,0 +1,12 @@
+---
+- include_tasks: create_user.yml
+  when: action == 'create_user'
+
+- include_tasks: install_rhsso.yml
+  when: action == 'install_rhsso'
+
+- include_tasks: config_rhsso.yml
+  when: action == 'config_rhsso'
+
+- include_tasks: rhsso_service.yml
+  when: action == 'rhsso_service'

@@ -1,0 +1,15 @@
+## Log file
+*.log
+
+## Ansible
+hosts*
+*.retry
+
+## Binaries
+*.zip
+*.rpm
+*.tar.gz
+*.jar
+
+.idea
+.vagrant

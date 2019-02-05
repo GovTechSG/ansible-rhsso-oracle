@@ -1,0 +1,9 @@
+## inventories/dev
+[rhsso]
+## Run playbook locally
+localhost ansible_connection=local
+## Run playbook remotely
+#<server_ip_address> ansible_user=<user> ansible_become_method=sudo ansible_ssh_private_key_file=<path_to_private_key>
+
+[dev:children]
+rhsso

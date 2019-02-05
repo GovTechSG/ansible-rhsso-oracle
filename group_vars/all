@@ -1,0 +1,10 @@
+---
+## USERS
+rhsso_user: "rhsso"
+
+## PATH VARIABLE
+deploy_dir: /tmp
+
+## FILES DESCRIPTION
+rhsso_untar_package: rh-sso-7.2
+rhsso_installation_package: rh-sso-7.2.0.zip

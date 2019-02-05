@@ -1,0 +1,48 @@
+---
+- name: debug
+  debug:
+    msg: "{{ rhsso_path }}/standalone/configuration"
+
+- name: Check if standalone.xml.bak exists
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  stat:
+    path: "{{ rhsso_path }}/standalone/configuration/standalone.xml.bak"
+  register: standalone_xml_bak
+
+- name: Rename standalone.xml to standalone.xml.bak
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  command: "mv {{ rhsso_path }}/standalone/configuration/standalone.xml {{ rhsso_path }}/standalone/configuration/standalone.xml.bak"
+  when: standalone_xml_bak.stat.exists == False
+
+- name: Copy custom standalone.xml to server
+  become: yes
+  template:
+    src: standalone.xml.j2
+    dest: "{{ rhsso_path }}/standalone/configuration/standalone.xml"
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0644
+
+- name: Check if jboss-cli.xml.bak exists
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  stat:
+    path: "{{ rhsso_path }}/bin/jboss-cli.xml.bak"
+  register: jbosscli_xml_bak
+
+- name: Rename jboss-cli.xml to jboss-cli.xml.bak
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  command: "mv {{ rhsso_path }}/bin/jboss-cli.xml {{ rhsso_path }}/bin/jboss-cli.xml.bak"
+  when: jbosscli_xml_bak.stat.exists == False
+
+- name: Copy custom jboss-cli.xml to server
+  become: yes
+  template:
+    src: jboss-cli.xml.j2
+    dest: "{{ rhsso_path }}/bin/jboss-cli.xml"
+    owner: "{{ rhsso_user }}"
+    group: "{{ rhsso_user }}"
+    mode: 0644

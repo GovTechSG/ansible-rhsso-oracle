@@ -1,0 +1,15 @@
+[Unit]
+Description=RHSSO Systemctl script
+After=network.target
+
+[Service]
+User=rhsso
+Group=rhsso
+Type=idle
+WorkingDirectory={{ rhsso_path }}/bin
+SuccessExitStatus=143
+ExecStart=/bin/bash {{ rhsso_path }}/bin/standalone.sh
+ExecStop=/bin/bash {{ rhsso_path }}/bin/shutdown.sh
+
+[Install]
+WantedBy=multi-user.target

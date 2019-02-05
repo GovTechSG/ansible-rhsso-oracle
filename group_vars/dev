@@ -1,0 +1,14 @@
+---
+server_ip_address:
+db_ip_address:
+db_port:
+db_sid:
+db_username:
+db_password:
+
+java_download_path: /tmp
+java_binary: jdk-8u192-linux-x64.rpm
+java_home: /usr/java/latest
+
+rhsso_installation_path: /home/rhsso
+rhsso_path: "{{ rhsso_installation_path }}/{{ rhsso_untar_package }}"

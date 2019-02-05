@@ -1,0 +1,30 @@
+---
+- name: Create user
+  hosts: rhsso
+  roles:
+    - {role: rhsso, action: create_user}
+
+- name: Install Java
+  hosts: rhsso
+  roles:
+    - {role: java, action: install_java}
+
+- name: Install rhsso
+  hosts: rhsso
+  roles:
+    - {role: rhsso, action: install_rhsso}
+
+- name: Install OJDBC
+  hosts: rhsso
+  roles:
+    - {role: ojdbc, action: install_ojdbc}
+
+- name: Configure rhsso
+  hosts: rhsso
+  roles:
+    - {role: rhsso, action: config_rhsso}
+
+- name: Register rhsso service
+  hosts: rhsso
+  roles:
+    - {role: rhsso, action: rhsso_service}

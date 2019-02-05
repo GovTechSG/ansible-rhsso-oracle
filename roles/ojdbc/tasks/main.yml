@@ -1,0 +1,3 @@
+---
+- include_tasks: install_ojdbc.yml
+  when: action == 'install_ojdbc'

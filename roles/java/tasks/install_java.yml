@@ -1,0 +1,28 @@
+---
+- name: Copy from source to remote
+  copy:
+    src: "{{ item }}"
+    dest: "{{ java_download_path }}"
+    mode: 0755
+  with_items:
+    - "{{ java_binary }}"
+
+- name: Install Java
+  become: yes
+  yum:
+    name: "{{ java_download_path }}/{{ java_binary }}"
+    state: present
+
+- name: Add JAVA_HOME to .bashrc
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  lineinfile:
+    path: /home/{{ rhsso_user }}/.bashrc
+    line: export JAVA_HOME="{{ java_home }}"
+    regexp: "export JAVA_HOME=.*"
+    state: present
+
+- name: Source .bashrc
+  become: yes
+  become_user: "{{ rhsso_user }}"
+  shell: "source /home/{{ rhsso_user }}/.bashrc"

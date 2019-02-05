@@ -1,0 +1,15 @@
+---
+- name: Register RHSSO as a service
+  become: yes
+  template:
+    src: "rhsso.service.j2"
+    dest: /etc/systemd/system/rhsso.service
+    mode: u=rw,g=r,o=r
+
+- name: Enable RHSSO service
+  become: yes
+  shell: "systemctl enable rhsso.service"
+
+- name: Reload systemctl
+  become: yes
+  shell: "systemctl daemon-reload"
