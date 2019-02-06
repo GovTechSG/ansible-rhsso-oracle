@@ -3,6 +3,7 @@
 This Ansible playbook is to automate the installation to Red Hat Single-Sign-On (RHSSO) in a VM and connect it to an existing Oracle database
 
 ## Assumption
+* The OS of your target VM uses the Yum package manager
 * This playbook assumes you are using Oracle database. If you are not using Oracle database, feel free to comment out
   * the "Install OJDBC" block in **deploy.yml**
   * any Oracle related configuration in **roles/rhsso/templates/standalone.xml.j2**
