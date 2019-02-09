@@ -29,4 +29,4 @@ ansible-playbook deploy.yml -i inventories/dev
 ```
 
 ## Contributing
-If you would like to contribute to this repo, please open an issue and create a PR
+If you would like to contribute to this repo, please open an issue, fork the repo and create a PR
