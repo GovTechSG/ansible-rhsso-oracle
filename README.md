@@ -1,5 +1,6 @@
 # ansible-rhsso-oracle
 ![](https://img.shields.io/github/release/GovTechSG/ansible-rhsso-oracle.svg?style=flat)
+![](https://img.shields.io/github/license/GovTechSG/ansible-rhsso-oracle.svg?style=flat)
 
 This Ansible playbook is to automate the installation to Red Hat Single-Sign-On (RHSSO) in a VM and connect it to an existing Oracle database
 
@@ -31,3 +32,6 @@ ansible-playbook deploy.yml -i inventories/dev
 
 ## Contributing
 If you would like to contribute to this repo, please open an issue, fork the repo and create a PR
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
